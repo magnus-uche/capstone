@@ -3,7 +3,8 @@ import {
     getAuth, 
     signInWithRedirect, 
     signInWithPopup, 
-    GoogleAuthProvider 
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
 // instance for firestore
@@ -28,10 +29,10 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // initialize a provider 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 // set custom parameters
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
     prompt: "select_account"
 });
 
@@ -39,23 +40,22 @@ provider.setCustomParameters({
 export const auth = getAuth();
 
 // sign in with popup 
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 
 // get firebase database. point to database
 export const db = getFirestore();
 
 // create a user method async function that recives user authentication object
+export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
+    if(!userAuth) return;
 
-export const createUserDocumentFromAuth = async (userAuth) => {
-    // check if there's an existing reference 
+    // check if there's an existing reference.
     // on the doc methed is databse'getfirestore()', second is collection, third is an identifier.
     const userDocRef = doc(db, 'users', userAuth.uid);
     
-
    // the getDoc method will get the data related to document
-    const userSnapshot =  await getDoc(userDocRef)
+    const userSnapshot =  await getDoc(userDocRef);
 
-    
     // check if user data exists 
     // create / set 'setDoc()' the document with the data from userAuth in my collection
     if(!userSnapshot.exists()) {
@@ -67,17 +67,24 @@ export const createUserDocumentFromAuth = async (userAuth) => {
             await setDoc(userDocRef, {
             displayName,
             email,
-            createAt
-            } )
+            createAt,
+            ...additionalInfo
+            });
         } catch (error) {
-        console.log('error creating the user', error.message)
+
+        console.log('error creating the user', error.message);
         }
     }
 
-
-
-    // return userdata
+    return userDocRef;
 }
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if(!email || !password) return;
+    
+    return await createUserWithEmailAndPassword(auth, email, password);
+}
+
 
 // Note :  a collection consist of document and inside document is our data
 
