@@ -8,7 +8,6 @@ $main-color: black;
 .group {
   position: relative;
   margin: 45px 0;
-  border: 1px solid red;
   .form-input { 
     background: none;
     background-color: white;
@@ -28,7 +27,7 @@ $main-color: black;
       @include shrinkLabel();
     }
   }
-  
+
   input[type="password"] {
     letter-spacing: 0.3em;
   }

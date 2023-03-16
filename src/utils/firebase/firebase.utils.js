@@ -1,7 +1,9 @@
+import { async } from '@firebase/util';
 import { initializeApp } from 'firebase/app';
 import { 
     getAuth, 
     signInWithRedirect, 
+    signInWithEmailAndPassword,
     signInWithPopup, 
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
@@ -43,7 +45,7 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 
 // get firebase database. point to database
-export const db = getFirestore();
+  export const db = getFirestore();
 
 // create a user method async function that recives user authentication object
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
@@ -84,6 +86,12 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
     
     return await createUserWithEmailAndPassword(auth, email, password);
 }
+
+export const signInAuthUserEmailAndPassword = async (email,password ) => {
+if(!email || !password) return;
+
+return await signInWithEmailAndPassword(auth, email, password)
+};
 
 
 // Note :  a collection consist of document and inside document is our data
