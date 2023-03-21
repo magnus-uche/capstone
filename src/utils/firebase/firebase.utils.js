@@ -1,12 +1,13 @@
-import { async } from '@firebase/util';
 import { initializeApp } from 'firebase/app';
 import { 
     getAuth, 
     signInWithRedirect, 
     signInWithEmailAndPassword,
     signInWithPopup, 
+    signOut,
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
+    onAuthStateChanged
 } from 'firebase/auth';
 
 // instance for firestore
@@ -27,7 +28,7 @@ const firebaseConfig = {
     appId: "1:687310887559:web:7b19b2dbe82e70a9157622"
 };
 
-// Initialize Firebase (sdk. 'developer kits')i.e javascript library that help extract some of the funtionality that we need in other to intract with the firebase. CRUD opereation.
+// Initialize Firebase (sdk. 'developer kits')i.e javascript library that help extract some of the funtionality that we need in other to interact with the firebase. CRUD opereation.
 const firebaseApp = initializeApp(firebaseConfig);
 
 // initialize a provider 
@@ -93,6 +94,9 @@ if(!email || !password) return;
 return await signInWithEmailAndPassword(auth, email, password)
 };
 
+export const signOutUser = async () =>  await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
 // Note :  a collection consist of document and inside document is our data
 
