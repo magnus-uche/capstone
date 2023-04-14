@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FormInput from "../form_input/form_input.component";
 import Button from "../button/button.component";
-import './signup.styles.scss';
+import {SignUpCointainer} from './signup.styles';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -53,7 +53,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpCointainer>
       <h2>I don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ const SignUpForm = () => {
         />
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpCointainer>
   );
 };
 

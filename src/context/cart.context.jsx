@@ -1,10 +1,12 @@
-import react, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
+
   // check if cartItems have productToADD
   const isExistingCart = cartItems.find((items) => {
     return items.id === productToAdd.id;
   });
+
   // if true increment the quantity + 1
   if (isExistingCart) {
     return cartItems.map((cartItem) => {
@@ -13,13 +15,15 @@ const addCartItem = (cartItems, productToAdd) => {
         : cartItem;
     });
   }
+
   // then return the new array modified or add cartItems.
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
 // remove item from cart
 const RemoveCartItem = (cartItems, id) =>
-  cartItems.filter((item) => item.id !== id);
+cartItems.filter((item) => item.id !== id);
+
 const reduceItemQuantity = (cartItems, id) => {
   const newItem = cartItems.find((item) => item.id === id);
   if (newItem.quantity === 1) {
@@ -57,7 +61,6 @@ export const cartsContext = createContext({
 
 const CartsProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  console.log(cartItems);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
@@ -86,7 +89,7 @@ const CartsProvider = ({ children }) => {
      return total
     }, {totalCount: 0, cartTotal: 0});
     setCartCount(totalCount);
-    setCartTotal(cartTotal)
+    setCartTotal(cartTotal);
   }, [cartItems]);
 
   const value = {
