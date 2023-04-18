@@ -14,7 +14,7 @@ align-items: center;
   width: 23%;
 }
 .quantity {
-  display: flex;e
+  display: flex;
   .arrow {
     cursor: pointer;
   }
