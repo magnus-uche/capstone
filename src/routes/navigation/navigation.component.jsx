@@ -4,8 +4,10 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 import { cartsContext } from "../../context/cart.context";
 import CardIcon from "../../components/cart-icon/card-icon.component";
 import logo from '../../assets/logo.jpg';
-import { userContext } from "../../context/user.context";
+// import { userContext } from "../../context/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector";
 import {
   NavigationContainer,
   LogoContainer,
@@ -15,7 +17,7 @@ import {
 
 
 const Navigation = () => {
-  const { currentUser } = useContext(userContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen } = useContext(cartsContext);
 
   return (
