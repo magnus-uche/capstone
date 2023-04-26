@@ -1,13 +1,13 @@
 import { CART_ACTION_TYPE } from "./cart.types";
 
-const initial_state = {
+const CART_INITIAL_STATE = {
     cartItems: [],
     cartCount: 0,
     cartTotal: 0,
     isCartOpen: false,
   }
 
-export const cartReducer = (state = initial_state, action) => {
+export const cartReducer = (state = CART_INITIAL_STATE, action) => {
     const { type, payload } = action;
   
     switch (type) {

@@ -25,13 +25,7 @@ const App = () => {
     return unsubscribe;
   }, []);
 
-  useEffect(()=>{
-    const getCategoriesMap = async () => {
-        const categoriesMap = await getCategoriesAndDocuments();
-        dispatch(setCategoriesMap(categoriesMap))
-    }
-    getCategoriesMap();
-},[])
+ 
 
 
   return (
